@@ -256,7 +256,7 @@
                                 </div>
                                 @else
                                 <div>
-                                    <a class="login" href="user-acount.html" rel="nofollow" title="Log in to your customer account">
+                                    <a class="login" href="{{route('user')}}" rel="nofollow" title="Log in to your customer account">
                                         <i class="fa fa-cog"></i>
                                         <span>Dashboard</span>
                                     </a>
