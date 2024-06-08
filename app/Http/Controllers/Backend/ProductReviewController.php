@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Product;
+use App\Models\Notification;
+use App\Models\User;
+use App\Models\ProductReview;
 class ProductReviewController extends Controller
 {
     /**
@@ -12,7 +15,9 @@ class ProductReviewController extends Controller
      */
     public function index()
     {
-        //
+        $reviews = ProductReview::getAllReview();
+
+        return view('backend.review.index')->with('reviews', $reviews);
     }
 
     /**
