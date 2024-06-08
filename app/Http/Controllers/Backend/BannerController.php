@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Banner;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 class BannerController extends Controller
 {
     /**
@@ -12,7 +15,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        $banner = Banner::orderBy('id', 'DESC')->paginate(10);
+        return view('backend.banner.index')->with('banners', $banner);
     }
 
     /**
@@ -20,7 +24,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.banner.create');
     }
 
     /**
@@ -28,7 +32,52 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'title' => 'string|nullable|max:50',
+            'description' => 'string|nullable',
+            'photo' => 'required',
+            'status' => 'required|in:active,inactive',
+        ]);
+        $data = new Banner();
+        $title = $request->title;
+        $slug = Str::slug($request->title);
+        $count = Banner::where('slug', $title)->count();
+        if ($count > 0) {
+            $slug = $request->title . '-' . date('ymdis') . '-' . rand(0, 999);
+        }
+        $data->slug = $slug;
+        $data->title = $request->title;
+        $data->description = $request->description;
+        $data->status = $request->status;
+        //upload image
+        if ($request->hasfile('photo')) {       
+            $image = $request->file('photo');
+            $manager = new ImageManager(new Driver());
+            $name_gen = time().hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $img = $manager->read($image);
+            $img = $img->resize(800, 600);
+            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/banners/' . $name_gen));
+            $img->toJpeg(80)->save(base_path('public/uploads/images/banners/' . $name_gen));
+
+
+            // $thumbnailImage = Image::make($originalImage);
+            // $time = time();
+            // $thumbnailPath = public_path() . '/uploads/thumbnail/banners/';
+            // $originalPath = public_path() . '/uploads/images/banners/';
+            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            // $thumbnailImage->resize(150, 150);
+            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            // $data->photo = $time . $originalImage->getClientOriginalName();
+            $data->photo = $name_gen;
+        }
+        $status = $data->save();
+        if ($status) {
+            request()->session()->flash('success', 'Banner successfully added');
+        } else {
+            request()->session()->flash('error', 'Error occurred while adding banner');
+        }
+        return redirect()->route('banner.index');
     }
 
     /**
@@ -42,24 +91,82 @@ class BannerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $banner = Banner::findOrFail($id);
+        return view('backend.banner.edit')->with('banner', $banner);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $banner = Banner::findOrFail($id);
+        $this->validate($request, [
+            'title' => 'string|nullable|max:50',
+            'description' => 'string|nullable',
+            // 'photo' => 'required',
+            'status' => 'required|in:active,inactive',
+        ]);
+        $banner->title = $request->title;
+        $banner->description = $request->description;
+        $banner->status = $request->status;
+        $title = $request->title;
+        $slug = Str::slug($request->title);
+        $count = Banner::where('slug', $title)->count();
+        if ($count > 0) {
+            $slug = $request->title . '-' . date('ymdis') . '-' . rand(0, 999);
+        }
+        $banner->slug = $slug;
+        if ($request->hasfile('photo')) {
+            if (file_exists(public_path() . '/uploads/thumbnail/banners/' . $banner->photo)) {
+                unlink(public_path() . '/uploads/thumbnail/banners/' . $banner->photo);
+            }
+            if (file_exists(public_path() . '/uploads/images/banners/' . $banner->photo)) {
+                unlink(public_path() . '/uploads/images/banners/' . $banner->photo);
+            }
+            // $originalImage = $request->file('photo');
+            // //dd($originalImage);
+            // $thumbnailImage = Image::make($originalImage);
+            // $time = time();
+            // $thumbnailPath = public_path() . '/uploads/images/banners/';
+            // $originalPath = public_path() . '/uploads/thumbnail/banners/';
+            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            // $thumbnailImage->resize(150, 150);
+            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            // $banner->photo = $time . $originalImage->getClientOriginalName();
+            $image = $request->file('photo');
+            $manager = new ImageManager(new Driver());
+            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $img = $manager->read($image);
+            $img = $img->resize(800, 600);
+            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/banners/' . $name_gen));
+            $img->toJpeg(80)->save(base_path('public/uploads/images/banners/' . $name_gen));
+            $banner->photo = $name_gen;
+        }
+        // dd($banner);
+        $status = $banner->save();
+        if ($status) {
+            request()->session()->flash('success', 'Banner successfully updated');
+        } else {
+            request()->session()->flash('error', 'Error occurred while updating banner');
+        }
+        return redirect()->route('banner.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $banner = Banner::findOrFail($id);
+        $status = $banner->delete();
+        if ($status) {
+            request()->session()->flash('success', 'Banner successfully deleted');
+        } else {
+            request()->session()->flash('error', 'Error occurred while deleting banner');
+        }
+        return redirect()->route('banner.index');
     }
 }
