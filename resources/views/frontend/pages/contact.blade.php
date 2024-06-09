@@ -50,12 +50,15 @@
                                                         <i class="zmdi zmdi-email"></i>
                                                     </div>
                                                 </div>
+                                                @php
+                                                $settings=DB::table('settings')->get();
+                                                @endphp
                                                 <div class="item-right d-flex">
                                                     <div class="title">Email:</div>
                                                     <div class="contact-content">
-                                                        <a href="mailto:support@domain.com">support@domain.com</a>
+                                                        <a href="mailto:support@domain.com">@foreach($settings as $data) {{$data->email}} @endforeach</a>
                                                         <br>
-                                                        <a href="mailto:contact@domain.com">contact@domain.com</a>
+                                                        <!-- <a href="mailto:contact@domain.com">contact@domain.com</a> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -70,8 +73,8 @@
                                                 <div class="item-right d-flex">
                                                     <div class="title">Address:</div>
                                                     <div class="contact-content">
-                                                        23 Suspendis matti, Visaosang Building
-                                                        <br>District, NY Accums, North American
+                                                        @foreach($settings as $data) {{$data->address}} @endforeach
+                                                        <!-- <br>District, NY Accums, North American -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,8 +89,7 @@
                                                 <div class="item-right d-flex">
                                                     <div class="title">Hotline:</div>
                                                     <div class="contact-content">
-                                                        0123-456-78910
-                                                        <br>0987-654-32100
+                                                        @foreach($settings as $data) {{$data->phone}} @endforeach
                                                     </div>
                                                 </div>
                                             </div>
@@ -100,44 +102,61 @@
                                     </div>
                                 </div>
                                 <div class="input-contact">
-                                    <p class="text-intro text-center">“Proin gravida nibh vel velit auctor aliquet. Aenean sollicudin, lorem quis bibendum
-                                        auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit
-                                        amet nibh vultate cursus a sit amet mauris. Proin gravida nibh vel velit auctor aliquet.”
+                                    <p class="text-intro text-center">@foreach($settings as $data) {{$data->short_des}} @endforeach
                                     </p>
 
                                     <p class="icon text-center">
                                         <a href="#">
-                                            <img src="img/other/contact_mess.png" alt="img">
+                                            <img src="{{asset('frontend/img/other/contact_mess.png')}}" alt="img">
                                         </a>
                                     </p>
 
                                     <div class="d-flex justify-content-center">
                                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                             <div class="contact-form">
-                                                <form action="#" method="post" enctype="multipart/form-data">
+                                                <form action="{{route('contact.store')}}" method="post" enctype="multipart/form-data">
+                                                    @csrf
                                                     <div class="form-fields">
                                                         <div class="form-group row">
                                                             <div class="col-md-6">
                                                                 <input class="form-control" name="name" placeholder="Your name">
+                                                                @error('name')
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
                                                             </div>
                                                             <div class="col-md-6 margin-bottom-mobie">
-                                                                <input class="form-control" name="from" type="email" value="" placeholder="Your email">
+                                                                <input class="form-control" name="email" type="email" value="" placeholder="Your email">
+                                                                @error('email')
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-md-12 margin-bottom-mobie">
-                                                                <input class="form-control" name="from" type="email" value="" placeholder="Subject">
+                                                            <div class="col-md-6 margin-bottom-mobie">
+                                                                <input class="form-control" name="subject" type="text" value="" placeholder="Subject">
+                                                                @error('subject')
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-6 margin-bottom-mobie">
+                                                                <input class="form-control" name="phone" type="number" value="" placeholder="Phone">
+                                                                @error('phone')
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="col-md-12">
                                                                 <textarea class="form-control" name="message" placeholder="Message" rows="8"></textarea>
+                                                                @error('message')
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div>
                                                         <button class="btn" type="submit" name="submitMessage">
-                                                            <img class="img-fl" src="img/other/contact_email.png" alt="img">Send message
+                                                            <img class="img-fl" src="{{asset('frontend/img/other/contact_email.png')}}" alt="img">Send message
                                                         </button>
                                                     </div>
                                                 </form>

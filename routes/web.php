@@ -48,6 +48,7 @@ Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
 //Contact Section
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+Route::post('/contact/message', [MessageController::class, 'store'])->name('contact.store');
 //About Us Section
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
 //Registration Section

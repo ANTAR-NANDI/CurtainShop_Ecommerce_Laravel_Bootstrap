@@ -9,11 +9,13 @@
                     <div class="tiva-html col-lg-4 col-md-12 col-xs-12">
                         <div class="block">
                             <div class="block-content">
+                                @php
+                                $settings=DB::table('settings')->get();
+                                @endphp
                                 <p class="logo-footer">
                                     <img src="img/home/logo.png" alt="img">
                                 </p>
-                                <p class="content-logo">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua. Ut enim ad minim
+                                <p class="content-logo">@foreach($settings as $data) {{$data->short_des}} @endforeach
                                 </p>
                             </div>
                         </div>
@@ -58,7 +60,7 @@
                                         <span>Address :</span>
                                     </div>
                                     <div class="content-contact address-contact">
-                                        <p>123 Suspendis matti, Visaosang Building VST District NY Accums, North American</p>
+                                        <p>@foreach($settings as $data) {{$data->address}} @endforeach</p>
                                     </div>
                                 </div>
                                 <div class="contact-us">
@@ -67,7 +69,7 @@
                                         <span>Email :</span>
                                     </div>
                                     <div class="content-contact mail-contact">
-                                        <p>support@domain.com</p>
+                                        <p>@foreach($settings as $data) {{$data->email}} @endforeach</p>
                                     </div>
                                 </div>
                                 <div class="contact-us">
@@ -76,7 +78,7 @@
                                         <span>Hotline :</span>
                                     </div>
                                     <div class="content-contact phone-contact">
-                                        <p>+0012-345-67890</p>
+                                        <p>@foreach($settings as $data) {{$data->phone}} @endforeach</p>
                                     </div>
                                 </div>
                                 <div class="contact-us">
@@ -172,7 +174,7 @@
             <div class="row">
                 <div class="text-center col-lg-12 ">
                     <span>
-                        <a target="_blank" href="https://www.templateshub.net">Templates Hub</a>
+                        <p>Copyright © {{date('Y')}} <a href="#" target="_blank">Curtain Shop UAE</a> - All Rights Reserved.</p>
                     </span>
                 </div>
             </div>
@@ -189,4 +191,3 @@
 <script src="{{ asset('frontend/libs/slider-range/js/draggable-0.1.js') }}"></script>
 <script src="{{ asset('frontend/libs/slider-range/js/jquery.slider.js') }}"></script>
 <script src="{{asset('frontend/js/theme.js')}}"></script>
-    
