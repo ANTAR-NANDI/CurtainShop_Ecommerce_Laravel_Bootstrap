@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-   
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -46,6 +46,10 @@ Route::get('/', [FrontendController::class, 'index'])->name('/');
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 //Blog Section
 Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
+Route::get('/blog-detail/{slug}', [FrontendController::class, 'blogDetail'])->name('blog.detail');
+Route::post('/blog/filter', [FrontendController::class, 'blogFilter'])->name('blog.filter');
+Route::get('blog-tag/{slug}', [FrontendController::class, 'blogByTag'])->name('blog.tag');
+Route::get('blog-cat/{slug}', [FrontendController::class, 'blogByCategory'])->name('blog.category');
 //Contact Section
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact/message', [MessageController::class, 'store'])->name('contact.store');

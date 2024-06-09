@@ -31,14 +31,14 @@
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <span>Living Room</span>
+                                                <span>Blog</span>
                                             </a>
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <a href="#">
                                                 <span>Sofa</span>
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ol>
                                 </div>
                             </div>
@@ -52,142 +52,26 @@
                                         <div class="sidebar-block">
                                             <div class="title-block">Categories</div>
                                             <div class="block-content">
-                                                <div class="cateTitle hasSubCategory open level1">
-                                                    <span class="arrow collapse-icons collapsed" data-toggle="collapse" data-target="#livingroom" aria-expanded="false" role="status">
-                                                        <i class="zmdi zmdi-minus"></i>
-                                                        <i class="zmdi zmdi-plus"></i>
-                                                    </span>
-                                                    <a class="cateItem" href="#">Living Room</a>
-                                                    <div class="subCategory collapse" id="livingroom" aria-expanded="true" role="status">
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">Side Table</a>
-                                                            <div class="subCategory collapse" id="subCategory-fruits" aria-expanded="true" role="status">
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">Side Table</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">FIREPLACE</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">FIREPLACE</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">floor lamp</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">ottoman</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">armchair</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">cushion</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">FIREPLACE</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">FIREPLACE</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">floor lamp</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">ottoman</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">armchair</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">cushion</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="cateTitle hasSubCategory open level1">
-                                                    <span class="arrow collapsed collapse-icons" data-toggle="collapse" data-target="#bathroom" aria-expanded="false" role="status">
-                                                        <i class="zmdi zmdi-minus"></i>
-                                                        <i class="zmdi zmdi-plus"></i>
-                                                    </span>
-                                                    <a class="cateItem" href="#">Bathroom</a>
-                                                    <div class="subCategory collapse" id="bathroom" aria-expanded="false" role="status">
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">TOMATO</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">BROCCOLI</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">CABBAGE</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">CUCUMBER</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">EGGPLANT</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="cateTitle hasSubCategory open level1">
-                                                    <span class="arrow collapsed collapse-icons" data-toggle="collapse" data-target="#diningroom" aria-expanded="false" role="status">
-                                                        <i class="zmdi zmdi-minus"></i>
-                                                        <i class="zmdi zmdi-plus"></i>
-                                                    </span>
-                                                    <a class="cateItem" href="#">Dining Rooom</a>
-                                                    <div class="subCategory collapse" id="diningroom" aria-expanded="true" role="status">
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">DRY BREAD</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">BREAD SLICES</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">FRENCH BREAD</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">BLACK BREAD</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="cateTitle hasSubCategory open level1">
-                                                    <span class="arrow collapsed collapse-icons" data-toggle="collapse" data-target="#bedroom" aria-expanded="false" role="status">
-                                                        <i class="zmdi zmdi-minus"></i>
-                                                        <i class="zmdi zmdi-plus"></i>
-                                                    </span>
-                                                    <a class="cateItem" href="#">BedRoom</a>
-                                                    <div class="subCategory collapse" id="bedroom" aria-expanded="true" role="status">
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">ORANGE JUICES</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">TOMATO JUICES</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">APPLE JUICES</a>
-                                                        </div>
+                                                @if(!empty($_GET['category']))
+                                                @php
+                                                $filter_cats=explode(',',$_GET['category']);
+                                                @endphp
+                                                @endif
+                                                <form action="{{route('blog.filter')}}" method="POST">
+                                                    @csrf
+                                                    {{-- {{count(Helper::postCategoryList())}} --}}
+                                                    @foreach(Helper::postCategoryList('posts') as $cat)
+                                                    <div class="cateTitle hasSubCategory open level1">
+                                                        <span class="arrow collapsed collapse-icons" data-toggle="collapse" data-target="#kitchen" aria-expanded="false" role="status">
+                                                            <i class="zmdi zmdi-minus"></i>
+                                                            <i class="zmdi zmdi-plus"></i>
+                                                        </span>
+                                                        <a class="cateItem" href="{{route('blog.category',$cat->slug)}}">{{$cat->title}}</a>
 
                                                     </div>
-                                                </div>
-                                                <div class="cateTitle hasSubCategory open level1">
-                                                    <span class="arrow collapsed collapse-icons" data-toggle="collapse" data-target="#kitchen" aria-expanded="false" role="status">
-                                                        <i class="zmdi zmdi-minus"></i>
-                                                        <i class="zmdi zmdi-plus"></i>
-                                                    </span>
-                                                    <a class="cateItem" href="#">Kitchen</a>
-                                                    <div class="subCategory collapse" id="kitchen" aria-expanded="true" role="status">
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">ORANGE JUICES</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">TOMATO JUICES</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">APPLE JUICES</a>
-                                                        </div>
+                                                    @endforeach
+                                                </form>
 
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
 
@@ -195,26 +79,37 @@
                                         <div class="sidebar-block">
                                             <div class="title-block">Recent Posts</div>
                                             <div class="post-item-content">
+                                                @foreach($recent_posts as $post)
                                                 <div>
                                                     <div class="late-item first-child">
                                                         <a href="blog-detail.html">
-                                                            <p class="content-title">Lorem ipsum dolor sit amet</p>
+                                                            <p class="content-title">{{$post->title}}</p>
                                                         </a>
+                                                        @php
+                                                        $author_info=DB::table('users')->select('name')->where('id',$post->added_by)->get();
+                                                        @endphp
                                                         <span>
-                                                            <i class="zmdi zmdi-comments"></i>13 comment
+                                                            <i class="zmdi zmdi-comments"></i>@foreach($author_info as $data)
+                                                            @if($data->name)
+                                                            {{$data->name}}
+                                                            @else
+                                                            Anonymous
+                                                            @endif
+                                                            @endforeach
                                                         </span>
                                                         <span>
-                                                            <i class="zmdi zmdi-calendar-note"></i>20 APRIl 2017
+                                                            <i class="zmdi zmdi-calendar-note"></i>{{$post->created_at->format('d M, y')}}
                                                         </span>
-                                                        <p class="description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-                                                            nonummy...
+                                                        <p class="description">{!! html_entity_decode($post->summary) !!}
                                                         </p>
                                                         <p class="remove">
-                                                            <a href="blog-detail.html">READ MORE</a>
+                                                            <a href="{{route('blog.detail',$post->slug)}}">READ MORE</a>
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div>
+                                                @endforeach
+
+                                                <!-- <div>
                                                     <div class="late-item">
                                                         <a href="blog-detail.html">
                                                             <p class="content-title">Lorem ipsum dolor sit amet</p>
@@ -232,7 +127,7 @@
                                                             <a href="blog-detail.html">READ MORE</a>
                                                         </p>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
 
@@ -243,7 +138,7 @@
                                             </div>
                                             <div class="block-content">
                                                 <ul class="listSidebarBlog list-unstyled">
-                                                    <li>
+                                                    <!-- <li>
                                                         <a href="#" title="Show products matching tag Hot Trend">Hot Trend</a>
                                                     </li>
 
@@ -265,27 +160,23 @@
 
                                                     <li>
                                                         <a href="#" title="Show products matching tag Shirt Dresses">Shirt Dresses</a>
-                                                    </li>
+                                                    </li> -->
 
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Shoes">Shoes</a>
-                                                    </li>
+                                                    @if(!empty($_GET['tag']))
+                                                    @php
+                                                    $filter_tags=explode(',',$_GET['tag']);
+                                                    @endphp
+                                                    @endif
+                                                    <form action="{{route('blog.filter')}}" method="POST">
+                                                        @csrf
+                                                        @foreach(Helper::postTagList('posts') as $tag)
 
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Summer">Summer</a>
-                                                    </li>
+                                                        <li>
+                                                            <a href="{{route('blog.tag',$tag->title)}}">{{$tag->title}} </a>
+                                                        </li>
 
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Sweaters">Sweaters</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Winter">Winter</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Woman">Woman</a>
-                                                    </li>
+                                                        @endforeach
+                                                    </form>
                                                 </ul>
                                             </div>
                                         </div>
@@ -294,7 +185,7 @@
                                         <div class="sidebar-block group-image-special">
                                             <div class="effect">
                                                 <a href="#">
-                                                    <img class="img-fluid" src="img/blog/advertising.jpg" alt="banner-2" title="banner-2">
+                                                    <img class="img-fluid" src="{{asset('frontend/img/blog/advertising.jpg')}}" alt="banner-2" title="banner-2">
                                                 </a>
                                             </div>
                                         </div>
@@ -302,31 +193,46 @@
                                     </div>
                                     <div class="col-sm-8 col-lg-9 col-md-9 flex-xs-first main-blogs">
                                         <h2>Recent Posts</h2>
+                                        @foreach($recent_posts as $post)
                                         <div class="list-content row">
                                             <div class="hover-after col-md-5 col-xs-12">
                                                 <a href="blog-detail.html">
-                                                    <img src="img/blog/4.jpg" alt="img">
+                                                    <img src="{{asset('/uploads/images/posts'). '/' . $post->photo}}" alt="{{$post->photo}}" alt="img">
                                                 </a>
                                             </div>
                                             <div class="late-item col-md-7 col-xs-12">
                                                 <p class="content-title">
-                                                    <a href="blog-detail.html">Lorem ipsum dolor sit amet</a>
+                                                    <a href="{{route('blog.detail',$post->slug)}}">{{$post->title}}</a>
                                                 </p>
                                                 <p class="post-info">
-                                                    <span>3 minitunes ago</span>
-                                                    <span>113 Comments</span>
-                                                    <span>TIVATHEME</span>
+                                                    <span>{{$post->created_at->format('d M, y')}}</span>
+
+                                                    @php
+                                                    $author_info=DB::table('users')->select('name')->where('id',$post->added_by)->get();
+                                                    @endphp
+                                                    <span>@foreach($author_info as $data)
+                                                        @if($data->name)
+                                                        {{$data->name}}
+                                                        @else
+                                                        Anonymous
+                                                        @endif
+                                                        @endforeach</span>
                                                 </p>
-                                                <p class="description">Proin gravida nibh vel velit auctor aliquet. Aenean sollicudin, lorem quis
-                                                    bibendum auctor, nisi elit consequat ipsum, elit. Duis sed odio sit amet
-                                                    nibh vultate cursus a sit amet mauris. Proin gravida...
+                                                <p class="description">{!! html_entity_decode($post->summary) !!}
                                                 </p>
                                                 <span class="view-more">
-                                                    <a href="blog-detail.html">view more</a>
+                                                    <a href="{{route('blog.detail',$post->slug)}}">view more</a>
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="list-content row">
+                                        
+                                        @endforeach
+                                        <div class="col-12">
+                                            <!-- Pagination -->
+                                            
+                                            <!--/ End Pagination -->
+                                        </div>
+                                        <!-- <div class="list-content row">
                                             <div class="hover-after col-md-5 col-xs-12">
                                                 <a href="blog-detail.html">
                                                     <img src="img/blog/5.jpg" alt="img">
@@ -445,7 +351,7 @@
                                                     <a href="blog-detail.html">view more</a>
                                                 </span>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="page-list col">
                                             <ul class="justify-content-center d-flex">
                                                 <li>
