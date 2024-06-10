@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PostTag;
 use App\Models\PostCategory;
+use App\Models\Product;
 use App\Models\Post;
+use App\Models\Brand;
+use App\Models\Category;
 class FrontendController extends Controller
 {
     public function index()
@@ -15,12 +18,53 @@ class FrontendController extends Controller
     }
     public function shop()
     {
-        return view('frontend.pages.shop');
+        $products = Product::query();
+
+        if (!empty($_GET['category'])) {
+            $slug = explode(',', $_GET['category']);
+            // dd($slug);
+            $cat_ids = Category::select('id')->whereIn('slug', $slug)->pluck('id')->toArray();
+            // dd($cat_ids);
+            $products->whereIn('cat_id', $cat_ids);
+            // return $products;
+        }
+        if (!empty($_GET['brand'])) {
+            $slugs = explode(',', $_GET['brand']);
+            $brand_ids = Brand::select('id')->whereIn('slug', $slugs)->pluck('id')->toArray();
+            return $brand_ids;
+            $products->whereIn('brand_id', $brand_ids);
+        }
+        if (!empty($_GET['sortBy'])) {
+            if ($_GET['sortBy'] == 'title') {
+                $products = $products->where('status', 'active')->orderBy('title', 'ASC');
+            }
+            if ($_GET['sortBy'] == 'price') {
+                $products = $products->orderBy('price', 'ASC');
+            }
+        }
+
+        if (!empty($_GET['price'])) {
+            $price = explode('-', $_GET['price']);
+            // return $price;
+            // if(isset($price[0]) && is_numeric($price[0])) $price[0]=floor(Helper::base_amount($price[0]));
+            // if(isset($price[1]) && is_numeric($price[1])) $price[1]=ceil(Helper::base_amount($price[1]));
+
+            $products->whereBetween('price', $price);
+        }
+
+        $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
+        // Sort by number
+        if (!empty($_GET['show'])) {
+            $products = $products->where('status', 'active')->paginate($_GET['show']);
+        } else {
+            $products = $products->where('status', 'active')->paginate(9);
+        }
+        // Sort by name , price, category
+
+
+        return view('frontend.pages.shop')->with('products', $products)->with('recent_products', $recent_products);
+        // return view('frontend.pages.shop');
     }
-    // public function blog()
-    // {
-    //     return view('frontend.pages.blog');
-    // }
     public function blog()
     {
         $post = Post::query();

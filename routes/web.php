@@ -44,6 +44,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontendController::class, 'index'])->name('/');
 //Shop Section
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
+Route::get('/product-cat/{slug}', [FrontendController::class, 'productCat'])->name('product-cat');
+Route::get('/product-brand/{slug}', [FrontendController::class, 'productBrand'])->name('product-brand');
+Route::get('product-detail/{slug}', [FrontendController::class, 'productDetail'])->name('product-detail');
+Route::get('/add-to-cart/{slug}', [FrontendController::class, 'addToCart'])->name('add-to-cart')->middleware('user');
+Route::get('/wishlist/{slug}', [FrontendController::class, 'wishlist'])->name('add-to-wishlist')->middleware('user');
 //Blog Section
 Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
 Route::get('/blog-detail/{slug}', [FrontendController::class, 'blogDetail'])->name('blog.detail');
