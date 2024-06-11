@@ -51,85 +51,38 @@
                                         <!-- category menu -->
                                         <div class="sidebar-block">
                                             <div class="title-block">Categories</div>
+                                            @php
+                                            $menu=App\Models\Category::getAllParentWithChild();
+                                            @endphp
                                             <div class="block-content">
+                                                @if($menu)
+                                                @foreach($menu as $cat_info)
+                                                @if($cat_info->child_cat->count()>0)
                                                 <div class="cateTitle hasSubCategory open level1">
                                                     <span class="arrow collapsed collapse-icons" data-toggle="collapse" data-target="#livingroom" aria-expanded="false" role="status">
                                                         <i class="zmdi zmdi-minus"></i>
                                                         <i class="zmdi zmdi-plus"></i>
                                                     </span>
-                                                    @php
-                                                    $menu=App\Models\Category::getAllParentWithChild();
-                                                    @endphp
-                                                    @if($menu)
-                                                    <li>
-                                                        @foreach($menu as $cat_info)
-                                                        @if($cat_info->child_cat->count()>0)
-                                                    <li><a href="{{route('product-cat',$cat_info->slug)}}">{{$cat_info->title}}</a>
-                                                        <ul>
-                                                            @foreach($cat_info->child_cat as $sub_menu)
-                                                            <li><a href="{{route('product-sub-cat',[$cat_info->slug,$sub_menu->slug])}}">{{$sub_menu->title}}</a></li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </li>
-                                                    @else
-                                                    <li><a href="{{route('product-cat',$cat_info->slug)}}">{{$cat_info->title}}</a></li>
-                                                    @endif
-                                                    @endforeach
-                                                    </li>
-                                                    @endif
-                                                    {{-- @foreach(Helper::productCategoryList('products') as $cat)
-                                            @if($cat->is_parent==1)
-												<li><a href="{{route('product-cat',$cat->slug)}}">{{$cat->title}}</a></li>
-                                                    @endif
-                                                    @endforeach --}}
-                                                    <a class="cateItem" href="#">Living Room</a>
+                                                    <a class="cateItem" href="#">{{$cat_info->title}}</a>
                                                     <div class="subCategory collapse" id="livingroom" aria-expanded="true" role="status">
+                                                        @foreach($cat_info->child_cat as $sub_menu)
                                                         <div class="cateTitle">
-                                                            <a href="#" class="cateItem">Side Table</a>
-                                                            <div class="subCategory collapse" id="subCategory-fruits" aria-expanded="true" role="status">
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">Side Table</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">FIREPLACE</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">FIREPLACE</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">floor lamp</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">ottoman</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">armchair</a>
-                                                                </div>
-                                                                <div class="cateTitle">
-                                                                    <a href="#" class="cateItem">cushion</a>
-                                                                </div>
-                                                            </div>
+                                                            <a href="#" class="cateItem">{{$sub_menu->title}}</a>
+
                                                         </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">FIREPLACE</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">FIREPLACE</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">floor lamp</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">ottoman</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">armchair</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">cushion</a>
-                                                        </div>
+                                                        @endforeach
+
+
                                                     </div>
                                                 </div>
+                                                @else
+                                                <a class="cateItem" href="#">{{$cat_info->title}}</a>
+                                                @endif
+                                                @endforeach
+
+                                                @else
+                                                <div class="title-block">No Categories</div>
+                                                @endif
 
                                             </div>
                                         </div>
@@ -162,27 +115,13 @@
                                                 <h3 class="title-product">By Price</h3>
                                                 <div id="block_price_filter" class="block">
                                                     <div class="block-content">
-                                                        @php
-                                                        $max=DB::table('products')->max('price');
-                                                        // dd($max);
-                                                        @endphp
-                                                        <div id="slider-range" data-min="0" data-max="{{$max}}" class="tiva-filter">
+                                                        <div id="slider-range" class="tiva-filter">
                                                             <div class="filter-itemprice-filter">
                                                                 <div class="layout-slider">
-                                                                    <input id="price-filter" name="price" value="0:{{$max}}" />
+                                                                    <input id="price-filter" name="price" value="0;100" />
                                                                 </div>
                                                                 <div class="layout-slider-settings"></div>
                                                             </div>
-                                                            <!-- extra -->
-                                                            <div class="product_filter">
-                                                                <button type="submit" class="filter_button">Filter</button>
-                                                                <div class="label-input">
-                                                                    <span>Range:</span>
-                                                                    <input style="" type="text" id="amount" readonly />
-                                                                    <input type="hidden" name="price_range" id="price_range" value="@if(!empty($_GET['price'])){{$_GET['price']}}@endif" />
-                                                                </div>
-                                                            </div>
-                                                            <!-- extra end -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -191,61 +130,10 @@
                                         </div>
 
                                         <!-- product tag -->
-                                        <div class="sidebar-block product-tags">
-                                            <div class="title-block">
-                                                Product Tags
-                                            </div>
-                                            <div class="block-content">
-                                                <ul class="listSidebarBlog list-unstyled">
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Hot Trend">Hot Trend</a>
-                                                    </li>
 
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Jewelry">Jewelry</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="man.html" title="Show products matching tag Man">Man</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Party">Party</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag SamSung">SamSung</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Shirt Dresses">Shirt Dresses</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Shoes">Shoes</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Summer">Summer</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Sweaters">Sweaters</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Winter">Winter</a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" title="Show products matching tag Woman">Woman</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="col-sm-8 col-lg-9 col-md-8 product-container">
-                                        <h1>Lingving Room</h1>
+                                        <h1>Products</h1>
                                         <div class="js-product-list-top firt nav-top">
                                             <div class="d-flex justify-content-around row">
                                                 <div class="col col-xs-12">
@@ -313,7 +201,7 @@
                                                                     </div>
                                                                     <div class="product-group-price">
                                                                         <div class="product-price-and-shipping">
-                                                                            <span class="price">{{$product->price}}</span>
+                                                                            <span class="price">$ {{$product->price}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -350,8 +238,8 @@
                                                                 <div class="col-md-4">
                                                                     <div class="thumbnail-container border">
                                                                         <a href="product-detail.html">
-                                                                            <img class="img-fluid image-cover" src="img/product/1.jpg" alt="img">
-                                                                            <img class="img-fluid image-secondary" src="img/product/22.jpg" alt="img">
+                                                                            <img class="img-fluid image-cover" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
+                                                                            <img class="img-fluid image-secondary" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -359,11 +247,18 @@
                                                                     <div class="product-description">
                                                                         <div class="product-groups">
                                                                             <div class="product-title">
-                                                                                <a href="product-detail.html">Nulla et justo non augue</a>
+                                                                                <a href="product-detail.html">{{$product->title}}</a>
+                                                                                @if($product->stock>0)
                                                                                 <span class="info-stock">
                                                                                     <i class="fa fa-check-square-o" aria-hidden="true"></i>
                                                                                     In Stock
                                                                                 </span>
+                                                                                @else
+                                                                                <span class="info-stock">
+                                                                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                                                    Out of Stock
+                                                                                </span>
+                                                                                @endif
                                                                             </div>
                                                                             <div class="rating">
                                                                                 <div class="star-content">
@@ -376,21 +271,20 @@
                                                                             </div>
                                                                             <div class="product-group-price">
                                                                                 <div class="product-price-and-shipping">
-                                                                                    <span class="price">£28.08</span>
+                                                                                    <span class="price">{{$product->price}}</span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="discription">
-                                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultricies eget velit vitae bibendum. Cras condimentum libero
-                                                                                a lectus ultricies...
+                                                                                {!! html_entity_decode($product->description) !!}
                                                                             </div>
                                                                         </div>
                                                                         <div class="product-buttons d-flex">
                                                                             <form action="#" method="post" class="formAddToCart">
-                                                                                <a class="add-to-cart" href="#" data-button-action="add-to-cart">
+                                                                                <a class="add-to-cart" href="{{route('add-to-cart',$product->slug)}}" data-button-action="add-to-cart">
                                                                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>Add to cart
                                                                                 </a>
                                                                             </form>
-                                                                            <a class="addToWishlist" href="#" data-rel="1" onclick="">
+                                                                            <a class="addToWishlist" href="{{route('add-to-wishlist',$product->slug)}}" data-rel="1" onclick="">
                                                                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                                                             </a>
                                                                             <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">

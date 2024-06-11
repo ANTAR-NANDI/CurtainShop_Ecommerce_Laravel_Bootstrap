@@ -45,6 +45,7 @@ Route::get('/', [FrontendController::class, 'index'])->name('/');
 //Shop Section
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 Route::get('/product-cat/{slug}', [FrontendController::class, 'productCat'])->name('product-cat');
+Route::get('/product-sub-cat/{slug}/{sub_slug}', 'FrontendController@productSubCat')->name('product-sub-cat');
 Route::get('/product-brand/{slug}', [FrontendController::class, 'productBrand'])->name('product-brand');
 Route::get('product-detail/{slug}', [FrontendController::class, 'productDetail'])->name('product-detail');
 Route::get('/add-to-cart/{slug}', [FrontendController::class, 'addToCart'])->name('add-to-cart')->middleware('user');
