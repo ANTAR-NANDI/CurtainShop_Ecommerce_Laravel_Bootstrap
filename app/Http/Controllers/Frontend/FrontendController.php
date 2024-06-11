@@ -65,6 +65,12 @@ class FrontendController extends Controller
         return view('frontend.pages.shop')->with('products', $products)->with('recent_products', $recent_products);
         // return view('frontend.pages.shop');
     }
+    public function productDetail($slug)
+    {
+        $product_detail = Product::getProductBySlug($slug);
+        //  dd($product_detail);
+        return view('frontend.pages.product-detail')->with('product_detail', $product_detail);
+    }
     public function blog()
     {
         $post = Post::query();
