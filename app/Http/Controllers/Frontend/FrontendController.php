@@ -9,6 +9,7 @@ use App\Models\PostCategory;
 use App\Models\Product;
 use App\Models\Post;
 use App\Models\Brand;
+use App\Models\ProductReview;
 use App\Models\Category;
 class FrontendController extends Controller
 {
@@ -68,8 +69,10 @@ class FrontendController extends Controller
     public function productDetail($slug)
     {
         $product_detail = Product::getProductBySlug($slug);
-        //  dd($product_detail);
-        return view('frontend.pages.product-detail')->with('product_detail', $product_detail);
+        $product_review = ProductReview::where('id', $product_detail->id)->where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();;
+
+        //dd($product_review);
+        return view('frontend.pages.product-detail')->with('product_detail', $product_detail)->with('product_review', $product_review);
     }
     public function blog()
     {

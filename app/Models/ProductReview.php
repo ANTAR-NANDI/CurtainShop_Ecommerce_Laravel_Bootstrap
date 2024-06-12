@@ -23,4 +23,8 @@ class ProductReview extends Model
     {
         return ProductReview::where('user_id', auth()->user()->id)->with('user_info')->paginate(10);
     }
+    public static function getProductReviews($product_review)
+    {
+        return Product::with(['user_info'])->where('id', $product_review)->get();
+    }
 }

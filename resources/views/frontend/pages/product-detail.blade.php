@@ -7,7 +7,7 @@
 
 </head>
 
-<body id="product-sidebar-left" class="product-grid-sidebar-left">
+<body id="product-detail">
 
     @include('frontend.layouts.header')
 
@@ -31,12 +31,12 @@
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <span>Living Room</span>
+                                                <span>Shop</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <span>Sofa</span>
+                                                <span>Product Details</span>
                                             </a>
                                         </li>
                                     </ol>
@@ -105,7 +105,7 @@
                                                             <div class="product-description">
                                                                 <div class="product-groups">
                                                                     <div class="product-title">
-                                                                        <a href="product-detail.html">Nulla et justo augue</a>
+                                                                        <a href="product-detail.html">{{$product_detail->title}}</a>
                                                                     </div>
                                                                     <div class="rating">
                                                                         <div class="star-content">
@@ -118,7 +118,7 @@
                                                                     </div>
                                                                     <div class="product-group-price">
                                                                         <div class="product-price-and-shipping">
-                                                                            <span class="price">£28.08</span>
+                                                                            <span class="price">£{{$product_detail->price}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -306,7 +306,7 @@
                                                             </span>
                                                             @endif
                                                         </div>
-                                                        <p class="description">{!! html_entity_decode($product_detail->description) !!}</p>
+                                                        <p class="description">{!! html_entity_decode($product_detail->summary) !!}</p>
                                                         <div class="option has-border d-lg-flex size-color">
                                                             <div class="size">
                                                                 <span class="size">size :</span>
@@ -335,7 +335,7 @@
                                                                             <span class="control-label">QTY : </span>
                                                                             <input type="text" name="qty" id="quantity_wanted" value="1" class="input-group form-control">
 
-                                                                            <span class="input-group-btn-vertical">
+                                                                            <span class="input-g   roup-btn-vertical">
                                                                                 <button class="btn btn-touchspin js-touchspin bootstrap-touchspin-up" type="button">
                                                                                     +
                                                                                 </button>
@@ -434,81 +434,55 @@
                                                     <li class="active">
                                                         <a data-toggle="tab" href="#description" class="active show">Description</a>
                                                     </li>
+
                                                     <li>
-                                                        <a data-toggle="tab" href="#tag">Product Tags</a>
-                                                    </li>
-                                                    <li>
-                                                        <a data-toggle="tab" href="#review">Reviews (2)</a>
+                                                        <a data-toggle="tab" href="#review">Reviews (<?php echo count($product_review) ?>)</a>
                                                     </li>
                                                 </ul>
 
                                                 <div class="tab-content">
                                                     <div id="description" class="tab-pane fade in active show">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                            eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem
-                                                            ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                            tempor incididunt ut labore et dolore magna aliqua.
+                                                        <p>{!! html_entity_decode($product_detail->description) !!}
                                                         </p>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                            eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem
-                                                            ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                            tempor incididunt ut labore et dolore magna aliqua.
-                                                        </p>
+
                                                     </div>
 
                                                     <div id="review" class="tab-pane fade">
                                                         <div class="spr-form">
                                                             <div class="user-comment">
-                                                                <div class="spr-review">
-                                                                    <div class="spr-review-header">
-                                                                        <span class="spr-review-header-byline">
-                                                                            <strong>Peter Capidal</strong> -
-                                                                            <span>Apr 14, 2018</span>
-                                                                        </span>
-                                                                        <div class="rating">
-                                                                            <div class="star-content">
-                                                                                <div class="star"></div>
-                                                                                <div class="star"></div>
-                                                                                <div class="star"></div>
-                                                                                <div class="star"></div>
-                                                                                <div class="star"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="spr-review-content">
-                                                                        <p class="spr-review-content-body">In feugiat venenatis enim, non finibus metus bibendum
-                                                                            eu. Proin massa justo, eleifend fermentum varius
-                                                                            quis, semper gravida quam. Cras nec enim sed
-                                                                            lacus viverra luctus. Nunc quis accumsan mauris.
-                                                                            Aliquam fermentum sit amet est id scelerisque.
-                                                                            Nam porta risus metus.</p>
-                                                                    </div>
-                                                                </div>
+
+                                                                @if(count($product_review)>0)
+                                                                @foreach($product_review as $product)
+                                                               
                                                                 <div class="spr-review preview2">
                                                                     <div class="spr-review-header">
                                                                         <span class="spr-review-header-byline">
-                                                                            <strong>David James</strong> -
-                                                                            <span>Apr 13, 2018</span>
+                                                                            <strong>ffff</strong> -
+                                                                            <span>{{$product->created_at}}</span>
                                                                         </span>
-                                                                        <div class="rating">
-                                                                            <div class="star-content">
-                                                                                <div class="star"></div>
-                                                                                <div class="star"></div>
-                                                                                <div class="star"></div>
-                                                                                <div class="star"></div>
-                                                                                <div class="star"></div>
+                                                                        @for($i=1; $i<=5; $i++) @if($product->rate>=$i)
+                                                                            <li style="display: block;"><i class="fa fa-star"></i></li>
+                                                                            @else
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            @endif
+                                                                            @endfor
+                                                                            <div class="rating">
+                                                                                <div class="star-content">
+
+
+
+
+                                                                                </div>
+
                                                                             </div>
-                                                                        </div>
                                                                     </div>
                                                                     <div class="spr-review-content">
-                                                                        <p class="spr-review-content-body">In feugiat venenatis enim, non finibus metus bibendum
-                                                                            eu. Proin massa justo, eleifend fermentum varius
-                                                                            quis, semper gravida quam. Cras nec enim sed
-                                                                            lacus viverra luctus. Nunc quis accumsan mauris.
-                                                                            Aliquam fermentum sit amet est id scelerisque.
-                                                                            Nam porta risus metus.</p>
+                                                                        <p class="spr-review-content-body">{{$product->review}}</p>
                                                                     </div>
                                                                 </div>
+                                                                @endforeach
+                                                                @endif
+
                                                             </div>
                                                         </div>
                                                         <form method="post" action="#" class="new-review-form">
@@ -557,18 +531,7 @@
                                                             </div>
                                                         </form>
                                                     </div>
-                                                    <div id="tag" class="tab-pane fade in">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                            eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem
-                                                            ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                            tempor incididunt ut labore et dolore magna aliqua.
-                                                        </p>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                            eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem
-                                                            ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                            tempor incididunt ut labore et dolore magna aliqua.
-                                                        </p>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="related">
