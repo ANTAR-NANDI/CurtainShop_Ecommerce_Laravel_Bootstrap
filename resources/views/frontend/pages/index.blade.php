@@ -530,6 +530,7 @@
                 </div>
             </div> -->
             <!-- slide show -->
+            @if(count($banners) > 0)
             <div class="section banner">
                 <div class="tiva-slideshow-wrapper">
                     <div id="tiva-slideshow" class="nivoSlider">
@@ -541,6 +542,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
 
         <!-- main -->
@@ -862,12 +864,11 @@
                                             <div class="row d-flex align-items-center">
                                                 <!-- column 4 -->
                                                 <div class="flex-4 col-lg-4 flex-4">
-                                                    <h2 class="title-block">
+                                                    <h2 class="title-block" style="margin-top: 10px;">
                                                         <span class="sub-title">Best sellers Products</span>Best Sellers
                                                     </h2>
                                                     <div class="content-text">
-                                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                            tempor incididunt ut labore dolore magna aliqua.
+                                                        <p> Here is the Best Products of all Time. Explore Your Shopping Experience by Adding to Cart. Thank You !
                                                         </p>
                                                         <div>
                                                             <a href="product-grid-sidebar-left.html"> View all product </a>
@@ -946,26 +947,28 @@
 
 
                         <!-- banner -->
+
                         <div class="container">
+                            @if(count($advertisement_banners)> 1)
                             <div class="section spacing-10 group-image-special col-lg-12 col-xs-12">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="effect">
                                             <a href="#">
-                                                <img height="200px" class="img-fluid" src="{{asset('/uploads/images/banners'). '/' . $banners[1]->photo}}" alt="banner-1" title="banner-1">
+                                                <img height="200px" class="img-fluid" src="{{asset('/uploads/images/banners'). '/' . $advertisement_banners[0]->photo}}" alt="banner-1" title="banner-1">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="effect">
                                             <a href="#">
-                                                <img height="300px" class="img-fluid" src="{{asset('/uploads/images/banners'). '/' . $banners[0]->photo}}" alt="banner-2" title="banner-2">
+                                                <img height="300px" class="img-fluid" src="{{asset('/uploads/images/banners'). '/' . $advertisement_banners[1]->photo}}" alt="banner-2" title="banner-2">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                            @endif
                             <!-- testimonial -->
                             <!-- <div class="section testimonial-block col-lg-12 col-xs-12">
                                 <div class="row">
@@ -1054,6 +1057,7 @@
                                 </div>
                             </div> -->
                         </div>
+
 
                         <!-- SHOP THE LOOK -->
                         @if(count($products) > 10)
@@ -1497,7 +1501,7 @@
                                             <div class="row d-flex align-items-center">
                                                 <!-- column 4 -->
                                                 <div class="flex-4 col-lg-4 flex-4">
-                                                    <h2 class="title-block">
+                                                    <h2 class="title-block" style="margin-top: 10px;">
                                                         Featured Products
                                                     </h2>
                                                     <div class="content-text">
