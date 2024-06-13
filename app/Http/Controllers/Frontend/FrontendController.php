@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdvertisementBanner;
 use Illuminate\Http\Request;
 use App\Models\PostTag;
 use App\Models\PostCategory;
@@ -12,15 +13,23 @@ use App\Models\Brand;
 use App\Models\ProductReview;
 use App\Models\Category;
 use App\Models\Banner;
+use App\Models\LookupBanner;
+
 class FrontendController extends Controller
 {
     public function index()
     {
         $banners = Banner::orderBy('id', 'DESC')->paginate(10);
+        $lookup_banners = LookupBanner::orderBy('id', 'DESC')->paginate(10);
+        $advertisement_banners = AdvertisementBanner::orderBy('id', 'DESC')->paginate(10);
         $products = Product::all();
         $latestPosts = Post::orderBy('id', 'DESC')->take(3)->get();
-       // dd($products);
-        return view('frontend.pages.index')->with('banners', $banners)->with('products', $products)->with('latest_posts', $latestPosts);
+        // dd($products);
+        return view('frontend.pages.index')->with('banners', $banners)
+            ->with('products', $products)
+            ->with('latest_posts', $latestPosts)
+            ->with('lookup_banners', $lookup_banners)
+            ->with('advertisement_banners', $advertisement_banners);
     }
     public function shop()
     {

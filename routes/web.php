@@ -5,6 +5,8 @@ use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\LookupBannerController;
+use App\Http\Controllers\Backend\AdvertisementBannerController;
 use App\Http\Controllers\Backend\MessageController;
 use App\Http\Controllers\Backend\NotificationController;
 use App\Http\Controllers\Backend\OrderController;
@@ -20,7 +22,6 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\RegistrationController;
 use App\Http\Controllers\User\HomeController;
-use App\Models\ProductReview;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,6 +88,10 @@ Route::group(['middleware' => 'admin'], function () {
             Route::post('/profile/{id}', [AdminController::class, 'profileUpdate'])->name('profile-update');
             // Banner
             Route::resource('banner', BannerController::class);
+            // Banner
+            Route::resource('lookup-banner', LookupBannerController::class);
+            // Banner
+            Route::resource('advertisement-banner', AdvertisementBannerController::class);
             // Category
             Route::resource('/category', CategoryController::class);
             // Product
