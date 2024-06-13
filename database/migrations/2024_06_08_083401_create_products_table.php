@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('photo');
             $table->integer('stock')->default(1);
             $table->string('size')->default('M')->nullable();
-            $table->enum('condition', ['default', 'new', 'hot'])->default('default');
+            $table->enum('condition', ['new', 'best', 'special'])->default('new');
             $table->enum('status', ['active', 'inactive'])->default('inactive');
             $table->float('price');
             $table->float('discount')->nullabale();

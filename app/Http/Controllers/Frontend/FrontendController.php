@@ -11,11 +11,16 @@ use App\Models\Post;
 use App\Models\Brand;
 use App\Models\ProductReview;
 use App\Models\Category;
+use App\Models\Banner;
 class FrontendController extends Controller
 {
     public function index()
     {
-        return view('frontend.pages.index');
+        $banners = Banner::orderBy('id', 'DESC')->paginate(10);
+        $products = Product::all();
+        $latestPosts = Post::orderBy('id', 'DESC')->take(3)->get();
+       // dd($products);
+        return view('frontend.pages.index')->with('banners', $banners)->with('products', $products)->with('latest_posts', $latestPosts);
     }
     public function shop()
     {
