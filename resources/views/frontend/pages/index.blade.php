@@ -955,14 +955,14 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="effect">
                                             <a href="#">
-                                                <img height="200px" class="img-fluid" src="{{asset('/uploads/images/banners'). '/' . $advertisement_banners[0]->photo}}" alt="banner-1" title="banner-1">
+                                                <img height="200px" class="img-fluid" src="{{asset('/uploads/images/advertisement-banners'). '/' . $advertisement_banners[0]->photo}}" alt="banner-1" title="banner-1">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="effect">
                                             <a href="#">
-                                                <img height="300px" class="img-fluid" src="{{asset('/uploads/images/banners'). '/' . $advertisement_banners[1]->photo}}" alt="banner-2" title="banner-2">
+                                                <img height="300px" class="img-fluid" src="{{asset('/uploads/images/advertisement-banners'). '/' . $advertisement_banners[1]->photo}}" alt="banner-2" title="banner-2">
                                             </a>
                                         </div>
                                     </div>
@@ -1075,7 +1075,7 @@
                                     <div class="row">
                                         <div class="items col-lg-12 col-sm-12 col-xs-12">
                                             <div class="tiva-content-lookbook">
-                                                <img class="img-fluid img-responsive" src="{{asset('/uploads/images/banners'). '/' . $banners[0]->photo}}" alt="lookbook">
+                                                <img class="img-fluid img-responsive" src="{{asset('/uploads/images/banners'). '/' . $lookup_banners[0]->photo}}" alt="lookbook">
 
                                                 <div class="item-lookbook item1">
                                                     <span class="number-lookbook">+</span>
@@ -1152,7 +1152,7 @@
                                     <div class="row">
                                         <div class="items col-lg-12 col-sm-12 col-xs-12">
                                             <div class="tiva-content-lookbook">
-                                                <img class="img-fluid img-responsive" src="{{asset('/uploads/images/banners'). '/' . $banners[1]->photo}}" alt="lookbook">
+                                                <img class="img-fluid img-responsive" src="{{asset('/uploads/images/banners'). '/' . $lookup_banners[1]->photo}}" alt="lookbook">
 
                                                 <div class="item-lookbook item3">
                                                     <span class="number-lookbook">+</span>
@@ -1264,7 +1264,7 @@
                                     <div class="row">
                                         <div class="items col-lg-12 col-sm-12 col-xs-12">
                                             <div class="tiva-content-lookbook">
-                                                <img class="img-fluid img-responsive" src="{{asset('/uploads/images/banners'). '/' . $banners[2]->photo}}" alt="lookbook">
+                                                <img class="img-fluid img-responsive" src="{{asset('/uploads/images/banners'). '/' . $lookup_banners[2]->photo}}" alt="lookbook">
 
                                                 <div class="item-lookbook item6">
                                                     <span class="number-lookbook">+</span>
@@ -1377,7 +1377,7 @@
                                     <div class="row">
                                         <div class="items col-lg-12 col-sm-12 col-xs-12">
                                             <div class="tiva-content-lookbook">
-                                                <img class="img-fluid img-responsive" src="{{asset('/uploads/images/banners'). '/' . $banners[3]->photo}}" alt="lookbook">
+                                                <img class="img-fluid img-responsive" src="{{asset('/uploads/images/banners'). '/' . $lookup_banners[3]->photo}}" alt="lookbook">
 
                                                 <div class="item-lookbook item9">
                                                     <span class="number-lookbook">+</span>

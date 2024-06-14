@@ -24,7 +24,7 @@ class FrontendController extends Controller
         $advertisement_banners = AdvertisementBanner::orderBy('id', 'DESC')->paginate(10);
         $products = Product::all();
         $latestPosts = Post::orderBy('id', 'DESC')->take(3)->get();
-        // dd($products);
+        // dd($advertisement_banners);
         return view('frontend.pages.index')->with('banners', $banners)
             ->with('products', $products)
             ->with('latest_posts', $latestPosts)
