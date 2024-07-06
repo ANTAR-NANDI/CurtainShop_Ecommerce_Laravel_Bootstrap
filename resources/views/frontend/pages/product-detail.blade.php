@@ -63,7 +63,7 @@
                                                         <i class="zmdi zmdi-minus"></i>
                                                         <i class="zmdi zmdi-plus"></i>
                                                     </span>
-                                                    <a class="cateItem" href="#">{{$cat_info->title}}</a>
+                                                    <a class="cateItem" href="#">{{$cat_info->title}}</a><br>
                                                     <div class="subCategory collapse" id="livingroom" aria-expanded="true" role="status">
                                                         @foreach($cat_info->child_cat as $sub_menu)
                                                         <div class="cateTitle">

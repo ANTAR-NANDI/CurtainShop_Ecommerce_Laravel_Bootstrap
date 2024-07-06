@@ -659,7 +659,7 @@
                                                             <div class="item text-center">
                                                                 <div class="product-miniature first-item js-product-miniature item-one">
                                                                     <div class="thumbnail-container">
-                                                                        <a href="product-detail.html">
+                                                                        <a href="{{route('product-detail',$product->slug)}}">
                                                                             <img class="img-fluid image-cover" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                             <img class="img-fluid image-secondary" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                         </a>
@@ -675,7 +675,7 @@
                                                                     <div class="product-description">
                                                                         <div class="product-groups">
                                                                             <div class="product-title">
-                                                                                <a href="product-detail.html">{{$product->title}}</a>
+                                                                                <a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
                                                                             </div>
                                                                             <div class="rating">
                                                                                 <div class="star-content">
@@ -725,7 +725,7 @@
                                                             <div class="item text-center">
                                                                 <div class="product-miniature first-item js-product-miniature item-one">
                                                                     <div class="thumbnail-container">
-                                                                        <a href="product-detail.html">
+                                                                        <a href="{{route('product-detail',$product->slug)}}">
                                                                             <img class="img-fluid image-cover" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                             <img class="img-fluid image-secondary" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                         </a>
@@ -741,7 +741,7 @@
                                                                     <div class="product-description">
                                                                         <div class="product-groups">
                                                                             <div class="product-title">
-                                                                                <a href="product-detail.html">{{$product->title}}</a>
+                                                                                <a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
                                                                             </div>
                                                                             <div class="rating">
                                                                                 <div class="star-content">
@@ -789,7 +789,7 @@
                                                             <div class="item text-center">
                                                                 <div class="product-miniature first-item js-product-miniature item-one">
                                                                     <div class="thumbnail-container">
-                                                                        <a href="product-detail.html">
+                                                                        <a href="{{route('product-detail',$product->slug)}}">
                                                                             <img class="img-fluid image-cover" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                             <img class="img-fluid image-secondary" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                         </a>
@@ -805,7 +805,7 @@
                                                                     <div class="product-description">
                                                                         <div class="product-groups">
                                                                             <div class="product-title">
-                                                                                <a href="product-detail.html">{{$product->title}}</a>
+                                                                                <a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
                                                                             </div>
                                                                             <div class="rating">
                                                                                 <div class="star-content">
@@ -888,7 +888,7 @@
 
                                                                     <div class="product-miniature js-product-miniature item-one first-item">
                                                                         <div class="thumbnail-container">
-                                                                            <a href="product-detail.html">
+                                                                            <a href="{{route('product-detail',$product->slug)}}">
                                                                                 <img class="img-fluid image-cover" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                                 <img class="img-fluid image-secondary" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                             </a>
@@ -903,7 +903,7 @@
                                                                         <div class="product-description">
                                                                             <div class="product-groups">
                                                                                 <div class="product-title">
-                                                                                    <a href="product-detail.html">{{$product->title}}</a>
+                                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
                                                                                 </div>
                                                                                 <div class="product-group-price">
                                                                                     <div class="product-price-and-shipping">
@@ -948,7 +948,7 @@
 
                         <!-- banner -->
 
-                        <div class="container">
+                        <div class="container" style="padding: 50px;">
                             @if(count($advertisement_banners)> 1)
                             <div class="section spacing-10 group-image-special col-lg-12 col-xs-12">
                                 <div class="row">
@@ -1082,13 +1082,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[0]->photo}}" alt="lorem-ipsum-dolor-sit-amet">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[0]->title}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[0]->title}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1103,7 +1103,7 @@
                                                                     £{{$products[0]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1115,13 +1115,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook  d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[1]->photo}}" alt="contrary-to-popular-belief">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[1]->photo}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[1]->photo}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1136,7 +1136,7 @@
                                                                     £{{$products[1]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1159,13 +1159,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook  d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[2]->photo}}" alt="lorem-ipsum-dolor-sit-amet">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[2]->title}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[2]->title}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1180,7 +1180,7 @@
                                                                     £{{$products[2]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1192,13 +1192,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook  d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[3]->photo}}" alt="lorem-ipsum-dolor-sit-amet">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[3]->title}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[3]->title}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1213,7 +1213,7 @@
                                                                     £{{$products[3]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1225,13 +1225,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook  d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[4]->photo}}" alt="mug-the-adventure-begins">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[4]->title}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[4]->title}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1246,7 +1246,7 @@
                                                                     £{{$products[4]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1271,13 +1271,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook  d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[5]->photo}}" alt="mug-the-adventure-begins">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[5]->title}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[5]->title}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1292,7 +1292,7 @@
                                                                     £{{$products[5]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1304,13 +1304,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook  d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[6]->photo}}" alt="brown-bear-vector-graphics">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[6]->title}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[6]->title}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1325,7 +1325,7 @@
                                                                     £{{$products[6]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1337,13 +1337,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook  d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[7]->photo}}" alt="lorem-ipsum-dolor-sit-amet">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[7]->title}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[7]->title}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1358,7 +1358,7 @@
                                                                     £{{$products[7]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1384,13 +1384,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook  d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[8]->photo}}" alt="lorem-ipsum-dolor-sit-amet">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[8]->title}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[8]->title}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1405,7 +1405,7 @@
                                                                     £{{$products[8]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1417,13 +1417,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook  d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[9]->photo}}" alt="lorem-ipsum-dolor-sit-amet">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[9]->title}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[9]->title}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1438,7 +1438,7 @@
                                                                     £{{$products[9]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1450,13 +1450,13 @@
                                                     <div class="content-lookbook">
                                                         <div class="main-lookbook  d-flex align-items-center">
                                                             <div class="item-thumb">
-                                                                <a href="product-detail.html">
+                                                                <a href="{{route('product-detail',$product->slug)}}">
                                                                     <img src="{{asset('/uploads/images/products'). '/' . $products[10]->photo}}" alt="lorem-ipsum-dolor-sit-amet">
                                                                 </a>
                                                             </div>
                                                             <div class="content-bottom">
                                                                 <div class="item-title">
-                                                                    <a href="product-detail.html">{{$products[10]->title}}</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$products[10]->title}}</a>
                                                                 </div>
                                                                 <div class="rating">
                                                                     <div class="star-content">
@@ -1471,7 +1471,7 @@
                                                                     £{{$products[10]->price}}
                                                                 </div>
                                                                 <div class="readmore">
-                                                                    <a href="product-detail.html">View More</a>
+                                                                    <a href="{{route('product-detail',$product->slug)}}">View More</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1525,7 +1525,7 @@
 
                                                                     <div class="product-miniature js-product-miniature item-one first-item">
                                                                         <div class="thumbnail-container">
-                                                                            <a href="product-detail.html">
+                                                                            <a href="{{route('product-detail',$product->slug)}}">
                                                                                 <img class="img-fluid image-cover" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                                 <img class="img-fluid image-secondary" src="{{asset('/uploads/images/products'). '/' . $product->photo}}" alt="img">
                                                                             </a>
@@ -1540,7 +1540,7 @@
                                                                         <div class="product-description">
                                                                             <div class="product-groups">
                                                                                 <div class="product-title">
-                                                                                    <a href="product-detail.html">{{$product->title}}</a>
+                                                                                    <a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
                                                                                 </div>
                                                                                 <div class="product-group-price">
                                                                                     <div class="product-price-and-shipping">

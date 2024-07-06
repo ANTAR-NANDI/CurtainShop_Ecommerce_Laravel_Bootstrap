@@ -84,9 +84,11 @@ class FrontendController extends Controller
     {
         $product_detail = Product::getProductBySlug($slug);
         $product_review = ProductReview::where('id', $product_detail->id)->where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();;
-
+        $products = Product::all();
         //dd($product_review);
-        return view('frontend.pages.product-detail')->with('product_detail', $product_detail)->with('product_review', $product_review);
+        return view('frontend.pages.product-detail')
+            ->with('products', $products)
+        ->with('product_detail', $product_detail)->with('product_review', $product_review);
     }
     public function blog()
     {
