@@ -38,7 +38,7 @@
         <div class="col-md-3">
           @if($banner->photo!=null)
           <span>Uploaded image <br /></span>
-          <img width="100px" height="100px" src="{{asset('/uploads/images/banners'). '/' . $banner->photo}}">
+          <img width="100px" height="100px" src="{{asset('/uploads/images/lookup-banners'). '/' . $banner->photo}}">
           @endif
         </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>

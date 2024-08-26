@@ -79,9 +79,12 @@ class BrandController extends Controller
         $this->validate($request, [
             'title' => 'string|required',
         ]);
-        $data = $request->all();
+        $brand->title =$request->title;
+        $brand->slug = Str::slug($request->title);
+        // $data = $request->all();
 
-        $status = $brand->fill($data)->save();
+        // $status = $brand->fill($data)->save();
+        $status = $brand->save();
         if ($status) {
             request()->session()->flash('success', 'Brand successfully updated');
         } else {

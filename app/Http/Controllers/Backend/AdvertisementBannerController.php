@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AdvertisementBanner;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Facades\Image;
 class AdvertisementBannerController extends Controller
 {
     /**
@@ -52,18 +51,19 @@ class AdvertisementBannerController extends Controller
         $data->status = $request->status;
         //upload image
         if ($request->hasfile('photo')) {
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(800, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/advertisement-banners/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/advertisement-banners/' . $name_gen));
-            $data->photo = $name_gen;
+            $originalImage = $request->file('photo');
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/thumbnail/advertisement-banners/';
+            $originalPath = public_path() . '/uploads/images/advertisement-banners/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $data->photo = $time . $originalImage->getClientOriginalName();
         }
         $status = $data->save();
         if ($status) {
-            request()->session()->flash('success', 'Banner successfully added');
+            request()->session()->flash('success', 'Advertisement Banner successfully added');
         } else {
             request()->session()->flash('error', 'Error occurred while adding banner');
         }
@@ -116,19 +116,21 @@ class AdvertisementBannerController extends Controller
             if (file_exists(public_path() . '/uploads/images/advertisement-banners/' . $banner->photo)) {
                 unlink(public_path() . '/uploads/images/advertisement-banners/' . $banner->photo);
             }
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(800, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/advertisement-banners/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/advertisement-banners/' . $name_gen));
-            $banner->photo = $name_gen;
+            $originalImage = $request->file('photo');
+            //dd($originalImage);
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/images/advertisement-banners/';
+            $originalPath = public_path() . '/uploads/thumbnail/advertisement-banners/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $banner->photo = $time . $originalImage->getClientOriginalName();
         }
         // dd($banner);
         $status = $banner->save();
         if ($status) {
-            request()->session()->flash('success', 'Banner successfully updated');
+            request()->session()->flash('success', 'Advertisement Banner successfully updated');
         } else {
             request()->session()->flash('error', 'Error occurred while updating banner');
         }

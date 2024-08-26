@@ -63,7 +63,7 @@ class LookupBannerController extends Controller
         }
         $status = $data->save();
         if ($status) {
-            request()->session()->flash('success', 'Banner successfully added');
+            request()->session()->flash('success', 'Lookup Banner successfully added');
         } else {
             request()->session()->flash('error', 'Error occurred while adding banner');
         }
@@ -110,29 +110,31 @@ class LookupBannerController extends Controller
         }
         $banner->slug = $slug;
         if ($request->hasfile('photo')) {
-            if (file_exists(public_path() . '/uploads/thumbnail/banners/' . $banner->photo)) {
-                unlink(public_path() . '/uploads/thumbnail/banners/' . $banner->photo);
+            if (file_exists(public_path() . '/uploads/thumbnail/lookup-banners/' . $banner->photo)) {
+                unlink(public_path() . '/uploads/thumbnail/lookup-banners/' . $banner->photo);
             }
-            if (file_exists(public_path() . '/uploads/images/banners/' . $banner->photo)) {
-                unlink(public_path() . '/uploads/images/banners/' . $banner->photo);
+            if (file_exists(public_path() . '/uploads/images/lookup-banners/' . $banner->photo)) {
+                unlink(public_path() . '/uploads/images/lookup-banners/' . $banner->photo);
             }
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(800, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/banners/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/banners/' . $name_gen));
-            $banner->photo = $name_gen;
+            $originalImage = $request->file('photo');
+            //dd($originalImage);
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/images/lookup-banners/';
+            $originalPath = public_path() . '/uploads/thumbnail/lookup-banners/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $banner->photo = $time . $originalImage->getClientOriginalName();
         }
         // dd($banner);
         $status = $banner->save();
         if ($status) {
-            request()->session()->flash('success', 'Banner successfully updated');
+            request()->session()->flash('success', 'Lookup Banner successfully updated');
         } else {
             request()->session()->flash('error', 'Error occurred while updating banner');
         }
-        return redirect()->route('banner.index');
+        return redirect()->route('lookup-banner.index');
     }
 
     /**
@@ -147,6 +149,6 @@ class LookupBannerController extends Controller
         } else {
             request()->session()->flash('error', 'Error occurred while deleting banner');
         }
-        return redirect()->route('banner.index');
+        return redirect()->route('lookup-banner.index');
     }
 }

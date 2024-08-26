@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Str;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Facades\Image;
 class CategoryController extends Controller
 {
     /**
@@ -54,23 +53,15 @@ class CategoryController extends Controller
         $cat->slug = $slug;
         //upload image
         if ($request->hasfile('photo')) {
-            // $originalImage = $request->file('photo');
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/thumbnail/categories/';
-            // $originalPath = public_path() . '/uploads/images/categories/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $cat->photo = $time . $originalImage->getClientOriginalName();
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(600, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/categories/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/categories/' . $name_gen));
-            $cat->photo = $name_gen;
+            $originalImage = $request->file('photo');
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/thumbnail/categories/';
+            $originalPath = public_path() . '/uploads/images/categories/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $cat->photo = $time . $originalImage->getClientOriginalName();
         }
 
         $cat->is_parent = $request->input('is_parent', 0);
@@ -120,6 +111,7 @@ class CategoryController extends Controller
         $category->status = $request->status;
         $category->parent_id = $request->parent_id;
         $category->is_parent = $request->input('is_parent', 0);
+        $category->slug = Str::slug($request->title);
         if ($request->hasfile('photo')) {
             // dd("Test");
             if (file_exists(public_path() . '/uploads/thumbnail/categories/' . $category->photo)) {
@@ -128,24 +120,16 @@ class CategoryController extends Controller
             if (file_exists(public_path() . '/uploads/images/categories/' . $category->photo)) {
                 unlink(public_path() . '/uploads/images/categories/' . $category->photo);
             }
-            // $originalImage = $request->file('photo');
-            // //dd($originalImage);
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/images/categories/';
-            // $originalPath = public_path() . '/uploads/thumbnail/categories/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $category->photo = $time . $originalImage->getClientOriginalName();
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(600, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/categories/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/categories/' . $name_gen));
-            $category->photo = $name_gen;
+            $originalImage = $request->file('photo');
+            //dd($originalImage);
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/images/categories/';
+            $originalPath = public_path() . '/uploads/thumbnail/categories/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $category->photo = $time . $originalImage->getClientOriginalName();
         }
         $status = $category->save();
         if ($status) {
