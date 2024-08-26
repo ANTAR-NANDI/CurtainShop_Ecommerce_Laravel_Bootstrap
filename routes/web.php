@@ -70,15 +70,138 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'loginSubmit'])->name('login.submit');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // ---------------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------
+// User section start
+Route::group(
+    ['prefix' => '/user'],
+    function () {
+        //User Dashboard 
+        Route::get('/', [HomeController::class, 'index'])->name('user');
+        // Profile
+        Route::get('/profile', [HomeController::class, 'profile'])->name('user-profile');
+        Route::post('/profile/{id}', [HomeController::class, 'profileUpdate'])->name('user-profile-update');
+        //  Order
+        Route::get('/order', [HomeController::class, 'orderIndex'])->name('user.order.index');
+        Route::get('/order/show/{id}', [HomeController::class, 'orderShow'])->name('user.order.show');
+        Route::delete('/order/delete/{id}', [HomeController::class, 'userOrderDelete'])->name('user.order.delete');
+        // Product Review
+        Route::get('/user-review', [HomeController::class, 'productReviewIndex'])->name('user.productreview.index');
+        Route::delete('/user-review/delete/{id}', [HomeController::class, 'productReviewDelete'])->name('user.productreview.delete');
+        Route::get('/user-review/edit/{id}', [HomeController::class, 'productReviewEdit'])->name('user.productreview.edit');
+        Route::patch('/user-review/update/{id}', [HomeController::class, 'productReviewUpdate'])->name('user.productreview.update');
+        // Post comment
+        Route::get('user-post/comment', [HomeController::class, 'userComment'])->name('user.post-comment.index');
+        Route::delete('user-post/comment/delete/{id}', [HomeController::class, 'userCommentDelete'])->name('user.post-comment.delete');
+        Route::get('user-post/comment/edit/{id}', [HomeController::class, 'userCommentEdit'])->name('user.post-comment.edit');
+        Route::patch('user-post/comment/udpate/{id}', [HomeController::class, 'userCommentUpdate'])->name('user.post-comment.update');
+        // Password Change
+        Route::get('change-password', [HomeController::class, 'changePassword'])->name('user.change.password.form');
+        Route::post('change-password', [HomeController::class, 'changPasswordStore'])->name('change.password');
+    }
+);
+// --------------------------------------------------------------------------------------------
+Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
+
+///////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Admin Section Routes Finalized
 Route::group(['middleware' => 'admin'], function () {
     Route::group(
         ['prefix' => '/admin'],
         function () {
-            Route::get('/', [AdminController::class, 'index'])->name('admin');
-            // Settings
             Route::get('settings', [AdminController::class, 'settings'])->name('settings');
             Route::post('setting/update', [AdminController::class, 'settingsUpdate'])->name('settings.update');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            Route::get('/', [AdminController::class, 'index'])->name('admin');
+            // Settings
+            
             // user route
             Route::resource('users', UsersController::class);
             // Coupon
@@ -126,37 +249,3 @@ Route::group(['middleware' => 'admin'], function () {
         }
     );
 });
-// ------------------------------------------------------------------------------------------
-// User section start
-Route::group(
-    ['prefix' => '/user'],
-    function () {
-        //User Dashboard 
-        Route::get('/', [HomeController::class, 'index'])->name('user');
-        // Profile
-        Route::get('/profile', [HomeController::class, 'profile'])->name('user-profile');
-        Route::post('/profile/{id}', [HomeController::class, 'profileUpdate'])->name('user-profile-update');
-        //  Order
-        Route::get('/order', [HomeController::class, 'orderIndex'])->name('user.order.index');
-        Route::get('/order/show/{id}', [HomeController::class, 'orderShow'])->name('user.order.show');
-        Route::delete('/order/delete/{id}', [HomeController::class, 'userOrderDelete'])->name('user.order.delete');
-        // Product Review
-        Route::get('/user-review', [HomeController::class, 'productReviewIndex'])->name('user.productreview.index');
-        Route::delete('/user-review/delete/{id}', [HomeController::class, 'productReviewDelete'])->name('user.productreview.delete');
-        Route::get('/user-review/edit/{id}', [HomeController::class, 'productReviewEdit'])->name('user.productreview.edit');
-        Route::patch('/user-review/update/{id}', [HomeController::class, 'productReviewUpdate'])->name('user.productreview.update');
-        // Post comment
-        Route::get('user-post/comment', [HomeController::class, 'userComment'])->name('user.post-comment.index');
-        Route::delete('user-post/comment/delete/{id}', [HomeController::class, 'userCommentDelete'])->name('user.post-comment.delete');
-        Route::get('user-post/comment/edit/{id}', [HomeController::class, 'userCommentEdit'])->name('user.post-comment.edit');
-        Route::patch('user-post/comment/udpate/{id}', [HomeController::class, 'userCommentUpdate'])->name('user.post-comment.update');
-        // Password Change
-        Route::get('change-password', [HomeController::class, 'changePassword'])->name('user.change.password.form');
-        Route::post('change-password', [HomeController::class, 'changPasswordStore'])->name('change.password');
-    }
-);
-// --------------------------------------------------------------------------------------------
-Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
-
-///////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////

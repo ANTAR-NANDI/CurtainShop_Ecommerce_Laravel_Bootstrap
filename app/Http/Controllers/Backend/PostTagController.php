@@ -78,8 +78,11 @@ class PostTagController extends Controller
             'title' => 'string|required',
             'status' => 'required|in:active,inactive'
         ]);
-        $data = $request->all();
-        $status = $postTag->fill($data)->save();
+        // $data = $request->all();
+        // $status = $postTag->fill($data)->save();
+        $postTag->title = $request->title;
+        $postTag->slug = Str::slug($request->title);
+        $status = $postTag->save();
         if ($status) {
             request()->session()->flash('success', 'Post Tag Successfully updated');
         } else {

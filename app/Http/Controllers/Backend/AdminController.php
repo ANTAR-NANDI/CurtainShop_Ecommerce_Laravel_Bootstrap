@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
+use Hash;
 use App\Models\Setting;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use App\Rules\MatchOldPassword;
+use Intervention\Image\Facades\Image;
 class AdminController extends Controller
 {
+    // Admin Dashboard View
     public function index()
     {
         $data = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
@@ -22,15 +24,16 @@ class AdminController extends Controller
         foreach ($data as $key => $value) {
             $array[++$key] = [$value->day_name, $value->count];
         }
-        //  return $data;
         return view('backend.index')->with('users', json_encode($array));
     }
+    // Settings View
     public function settings()
     {
         $data = Setting::first();
 
         return view('backend.setting')->with('data', $data);
     }
+    // Settings Update
     public function settingsUpdate(Request $request)
     {
 
@@ -42,31 +45,21 @@ class AdminController extends Controller
         $data->email = $request->email;
         $data->phone = $request->phone;
         if ($request->hasfile('photo')) {
-            // dd("Test");
             if (file_exists(public_path() . '/uploads/thumbnail/settings/' . $data->photo)) {
                 unlink(public_path() . '/uploads/thumbnail/settings/' . $data->photo);
             }
             if (file_exists(public_path() . '/uploads/images/settings/' . $data->photo)) {
                 unlink(public_path() . '/uploads/images/settings/' . $data->photo);
             }
-            // $originalImage = $request->file('photo');
-            // //dd($originalImage);
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/images/settings/';
-            // $originalPath = public_path() . '/uploads/thumbnail/settings/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $data->photo = $time . $originalImage->getClientOriginalName();
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(600, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/settings/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/settings/' . $name_gen));
-            $data->photo = $name_gen;
+            $originalImage = $request->file('photo');
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/images/settings/';
+            $originalPath = public_path() . '/uploads/thumbnail/settings/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $data->photo = $time . $originalImage->getClientOriginalName();
         }
         $status = $data->save();
         if ($status) {
@@ -76,31 +69,20 @@ class AdminController extends Controller
         }
         return redirect()->route('settings');
     }
+
+    // User / Admin Profile View
     public function profile()
     {
         $profile = Auth()->user();
-        // dd($profile);
-        // return $profile;
         return view('backend.users.profile')->with('profile', $profile);
     }
+    // Profile Update 
     public function profileUpdate(Request $request, $id)
     {
-        // return $request->all();
-        // $user = User::findOrFail($id);
-        // $data = $request->all();
-        // $status = $user->fill($data)->save();
-        // if ($status) {
-        //     request()->session()->flash('success', 'Successfully updated your profile');
-        // } else {
-        //     request()->session()->flash('error', 'Please try again!');
-        // }
-        // return redirect()->back();
         $user = User::findOrFail($id);
-        //dd($user);
         $user->name = $request->name;
         $user->role = $request->role;
         if ($request->hasfile('photo')) {
-            //dd("Test");
             if ($user->photo != null) {
                 if (file_exists(public_path() . '/uploads/thumbnail/users/' . $user->photo)) {
                     unlink(public_path() . '/uploads/thumbnail/users/' . $user->photo);
@@ -109,26 +91,16 @@ class AdminController extends Controller
                     unlink(public_path() . '/uploads/images/users/' . $user->photo);
                 }
             }
-            // $originalImage = $request->file('photo');
-            // //dd($originalImage);
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/images/users/';
-            // $originalPath = public_path() . '/uploads/thumbnail/users/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $user->photo = $time . $originalImage->getClientOriginalName();
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(600, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/users/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/users/' . $name_gen));
-            $user->photo = $name_gen;
+            $originalImage = $request->file('photo');
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/images/users/';
+            $originalPath = public_path() . '/uploads/thumbnail/users/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $user->photo = $time . $originalImage->getClientOriginalName();
         }
-        //dd($request);
         $status = $user->save();
         if ($status) {
             request()->session()->flash('success', 'Successfully updated your profile');
@@ -137,13 +109,14 @@ class AdminController extends Controller
         }
         return redirect()->back();
     }
+    // Change Password View
     public function changePassword()
     {
         return view('backend.layouts.changePassword');
     }
+    // Change Password Update
     public function changPasswordStore(Request $request)
     {
-        //dd("test");
         $request->validate([
             'current_password' => ['required', new MatchOldPassword],
             'new_password' => ['required'],
@@ -154,4 +127,7 @@ class AdminController extends Controller
 
         return redirect()->route('admin')->with('success', 'Password successfully changed');
     }
+
+
+
 }

@@ -9,8 +9,7 @@ use App\Models\Post;
 use App\Models\PostCategory;
 use App\Models\PostTag;
 use App\Models\User;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Facades\Image;
 class PostController extends Controller
 {
     /**
@@ -74,28 +73,19 @@ class PostController extends Controller
         }
         //upload image
         if ($request->hasfile('photo')) {
-            // $originalImage = $request->file('photo');
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/thumbnail/posts/';
-            // $originalPath = public_path() . '/uploads/images/posts/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $post->photo = $time . $originalImage->getClientOriginalName();
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(600, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/posts/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/posts/' . $name_gen));
-            $post->photo = $name_gen;
+            $originalImage = $request->file('photo');
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/thumbnail/posts/';
+            $originalPath = public_path() . '/uploads/images/posts/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $post->photo = $time . $originalImage->getClientOriginalName();
         }
         // return $data;
 
-        $status =
-            $post->save();
+        $status = $post->save();
         if ($status) {
             request()->session()->flash('success', 'Post Successfully added');
         } else {
@@ -117,10 +107,12 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
+        //dd($post);
         $post = Post::findOrFail($id);
         $categories = PostCategory::get();
         $tags = PostTag::get();
         $users = User::get();
+        // 
         return view('backend.post.edit')->with('categories', $categories)->with('users', $users)->with('tags', $tags)->with('post', $post);
     }
 
@@ -136,7 +128,7 @@ class PostController extends Controller
             'quote' => 'string|nullable',
             'summary' => 'string|required',
             'description' => 'string|nullable',
-            'photo' => 'string|nullable',
+            'photo' => 'nullable',
             'tags' => 'nullable',
             'added_by' => 'nullable',
             'post_cat_id' => 'required',
@@ -172,24 +164,16 @@ class PostController extends Controller
             if (file_exists(public_path() . '/uploads/images/posts/' . $post->photo)) {
                 unlink(public_path() . '/uploads/images/posts/' . $post->photo);
             }
-            // $originalImage = $request->file('photo');
-            // //dd($originalImage);
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/images/products/';
-            // $originalPath = public_path() . '/uploads/thumbnail/products/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $post->photo = $time . $originalImage->getClientOriginalName();
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(600, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/posts/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/posts/' . $name_gen));
-            $post->photo = $name_gen;
+            $originalImage = $request->file('photo');
+            //dd($originalImage);
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/images/posts/';
+            $originalPath = public_path() . '/uploads/thumbnail/posts/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $post->photo = $time . $originalImage->getClientOriginalName();
         }
 
         $status = $post->save();

@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -53,23 +52,15 @@ class UsersController extends Controller
         $data->status = $request->status;
         //upload image
         if ($request->hasfile('photo')) {
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(600, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/categories/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/categories/' . $name_gen));
-            $data->photo = $name_gen;
-            // $originalImage = $request->file('photo');
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/thumbnail/users/';
-            // $originalPath = public_path() . '/uploads/images/users/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $data->photo = $time . $originalImage->getClientOriginalName();
+            $originalImage = $request->file('photo');
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/thumbnail/users/';
+            $originalPath = public_path() . '/uploads/images/users/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+             $data->photo = $time . $originalImage->getClientOriginalName();
         }
         $status = $data->save();
         if ($status) {
@@ -121,7 +112,8 @@ class UsersController extends Controller
         // $user->phone = $request->phone;
         if ($request->hasfile('photo')) {
             // dd("Test");
-            if ($user->photo != null) {
+            if($user->photo != null)
+            {
                 if (file_exists(public_path() . '/uploads/thumbnail/users/' . $user->photo)) {
                     unlink(public_path() . '/uploads/thumbnail/users/' . $user->photo);
                 }
@@ -129,25 +121,18 @@ class UsersController extends Controller
                     unlink(public_path() . '/uploads/images/users/' . $user->photo);
                 }
             }
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(600, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/users/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/users/' . $name_gen));
-            $user->photo = $name_gen;
-
-            // $originalImage = $request->file('photo');
-            // //dd($originalImage);
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/images/users/';
-            // $originalPath = public_path() . '/uploads/thumbnail/users/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $user->photo = $time . $originalImage->getClientOriginalName();
+            
+            
+            $originalImage = $request->file('photo');
+            //dd($originalImage);
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/images/users/';
+            $originalPath = public_path() . '/uploads/thumbnail/users/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $user->photo = $time . $originalImage->getClientOriginalName();
         }
         $status = $user->save();
         if ($status) {

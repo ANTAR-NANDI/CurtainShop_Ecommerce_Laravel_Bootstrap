@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LookupBanner;
 use Illuminate\Support\Str;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+// use Intervention\Image\ImageManager;
+// use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Facades\Image;
 class LookupBannerController extends Controller
 {
     /**
@@ -53,12 +54,11 @@ class LookupBannerController extends Controller
         //upload image
         if ($request->hasfile('photo')) {
             $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(800, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/banners/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/banners/' . $name_gen));
+            $img = Image::make($image);
+            $name_gen = time().hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $img = $img->resize(80, 80);
+            $img->save(base_path('public/uploads/thumbnail/lookup-banners/' . $name_gen));
+            $img->save(base_path('public/uploads/images/lookup-banners/' . $name_gen));
             $data->photo = $name_gen;
         }
         $status = $data->save();
@@ -67,7 +67,7 @@ class LookupBannerController extends Controller
         } else {
             request()->session()->flash('error', 'Error occurred while adding banner');
         }
-        return redirect()->route('banner.index');
+        return redirect()->route('lookup-banner.index');
     }
 
     /**
@@ -84,7 +84,7 @@ class LookupBannerController extends Controller
     public function edit(string $id)
     {
         $banner = LookupBanner::findOrFail($id);
-        return view('backend.banner.edit')->with('banner', $banner);
+        return view('backend.lookup-banner.edit')->with('banner', $banner);
     }
 
     /**

@@ -73,13 +73,16 @@ class PostCategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $postCategory = PostCategory::findOrFail($id);
-        // return $request->all();
+        // dd($request->all());
         $this->validate($request, [
             'title' => 'string|required',
             'status' => 'required|in:active,inactive'
         ]);
-        $data = $request->all();
-        $status = $postCategory->fill($data)->save();
+        $postCategory->title = $request->title;
+        $postCategory->slug = Str::slug($request->title);
+        // $data = $request->all();
+        // $status = $postCategory->fill($data)->save();
+        $status = $postCategory->save();
         if ($status) {
             request()->session()->flash('success', 'Post Category Successfully updated');
         } else {

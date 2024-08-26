@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Banner;
 use Illuminate\Support\Str;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Facades\Image;
 class BannerController extends Controller
 {
     /**
@@ -51,25 +50,16 @@ class BannerController extends Controller
         $data->description = $request->description;
         $data->status = $request->status;
         //upload image
-        if ($request->hasfile('photo')) {       
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time().hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(800, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/banners/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/banners/' . $name_gen));
-
-
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/thumbnail/banners/';
-            // $originalPath = public_path() . '/uploads/images/banners/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $data->photo = $time . $originalImage->getClientOriginalName();
-            $data->photo = $name_gen;
+         if ($request->hasfile('photo')) {
+            $originalImage = $request->file('photo');
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/thumbnail/banners/';
+            $originalPath = public_path() . '/uploads/images/banners/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $data->photo = $time . $originalImage->getClientOriginalName();
         }
         $status = $data->save();
         if ($status) {
@@ -126,24 +116,16 @@ class BannerController extends Controller
             if (file_exists(public_path() . '/uploads/images/banners/' . $banner->photo)) {
                 unlink(public_path() . '/uploads/images/banners/' . $banner->photo);
             }
-            // $originalImage = $request->file('photo');
-            // //dd($originalImage);
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/images/banners/';
-            // $originalPath = public_path() . '/uploads/thumbnail/banners/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $banner->photo = $time . $originalImage->getClientOriginalName();
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(800, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/banners/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/banners/' . $name_gen));
-            $banner->photo = $name_gen;
+            $originalImage = $request->file('photo');
+            //dd($originalImage);
+            $thumbnailImage = Image::make($originalImage);
+            $time = time();
+            $thumbnailPath = public_path() . '/uploads/images/banners/';
+            $originalPath = public_path() . '/uploads/thumbnail/banners/';
+            $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150, 150);
+            $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+            $banner->photo = $time . $originalImage->getClientOriginalName();
         }
         // dd($banner);
         $status = $banner->save();

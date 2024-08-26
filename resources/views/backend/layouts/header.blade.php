@@ -42,7 +42,7 @@
 
     {{-- Home page --}}
     <li class="nav-item dropdown no-arrow mx-1">
-      <a class="nav-link dropdown-toggle" href="{{route('home')}}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="home" role="button">
+      <a class="nav-link dropdown-toggle" href="{{route('admin')}}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="home" role="button">
         <i class="fas fa-home fa-fw"></i>
       </a>
     </li>
@@ -90,7 +90,7 @@
         <form id="logout-form" action="" method="POST" style="display: none;">
           @csrf
         </form> -->
-        <a class="dropdown-item" href="{{route('user.logout')}}">
+        <a class="dropdown-item" href="{{route('logout')}}">
           <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
           Logout
         </a>

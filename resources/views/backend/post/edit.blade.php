@@ -87,7 +87,7 @@
         <div class="col-md-3">
           @if($data->photo!=null)
           <span>Uploaded image <br /></span>
-          <img width="100px" height="100px" src="{{asset('/uploads/images/posts'). '/' . $data->photo}}">
+          <img width="100px" height="100px" src="{{asset('/uploads/images/posts'). '/' . $post->photo}}">
           @endif
         </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
