@@ -59,8 +59,8 @@
               @endif
             </td>
             <td>
-              <a href="{{route('banner.edit',$banner->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-              <form method="POST" action="{{route('banner.destroy',[$banner->id])}}">
+              <a href="{{route('advertisement-banner.edit',$banner->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+              <form method="POST" action="{{route('advertisement-banner.destroy',[$banner->id])}}">
                 @csrf
                 @method('delete')
                 <button class="btn btn-danger btn-sm dltBtn" data-id={{$banner->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
@@ -77,7 +77,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form method="post" action="{{ route('banners.destroy',$user->id) }}">
+                  <form method="post" action="{{ route('advertisement-banner.destroy',$user->id) }}">
                     @csrf
                     @method('delete')
                     <button type="submit" class="btn btn-danger" style="margin:auto; text-align:center">Parmanent delete user</button>
