@@ -85,10 +85,10 @@
             <td>
               @if($product->photo)
               @php
-              $photo=explode(',',$product->photo);
+              $photo=explode(';',$product->photo);
               // dd($photo);
               @endphp
-              <img src="{{asset('/uploads/images/products'). '/' . $product->photo}}" class="img-fluid zoom" style="max-width:80px" alt="{{$product->photo}}">
+              <img src="{{asset('/uploads/images/products'). '/' . $photo[0]}}" class="img-fluid zoom" style="max-width:80px" alt="{{$photo[0]}}">
               @else
               <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
               @endif

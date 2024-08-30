@@ -124,7 +124,7 @@
         <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
         <div class="input-group">
           <span class="input-group-btn">
-            <input type="file" id="product_image" name="photo" class="form-control" />
+            <input type="file" id="product_image" name="photos[]" class="form-control" />
           </span>
 
         </div>
@@ -132,11 +132,19 @@
           <img id="preview-image-before-upload" src="{{asset('backend/img/avatar.png')}}" alt="preview image" style="max-height: 250px;">
         </div>
         <div class="col-md-3">
-          @if($product->photo!=null)
-          <span>Uploaded image <br /></span>
-          <img width="100px" height="100px" src="{{asset('/uploads/images/products'). '/' . $product->photo}}">
+        <span>Uploaded image <br /></span>
+          @if($product->photo != null)
+              @php
+                  $photo = explode(';', $product->photo);
+              @endphp
+              @foreach ($photo as $path)
+                  @if ($path) <!-- Ensure there are no empty values -->
+                      
+                      <img width="100px" height="100px" src="{{ asset('/uploads/images/products/' . $path) }}" alt="Uploaded Image">
+                  @endif
+              @endforeach
           @endif
-        </div>
+      </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
 
         @error('photo')

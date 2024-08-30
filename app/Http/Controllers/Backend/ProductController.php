@@ -8,8 +8,9 @@ use App\Models\Product;
 use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Support\Str;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Facades\Image;
+// use Intervention\Image\ImageManager;
+// use Intervention\Image\Drivers\Gd\Driver;
 class ProductController extends Controller
 {
     /**
@@ -41,7 +42,7 @@ class ProductController extends Controller
             'title' => 'string|required',
             'summary' => 'string|required',
             'description' => 'string|nullable',
-            'photo' => 'required',
+            'photos' => 'required',
             'size' => 'nullable',
             'stock' => "required|numeric",
             'cat_id' => 'required|exists:categories,id',
@@ -79,15 +80,23 @@ class ProductController extends Controller
         $product->stock = $request->stock;
         $product->status = $request->status;
         //upload image
-        if ($request->hasfile('photo')) {
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(600, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/products/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/products/' . $name_gen));
-            $product->photo = $name_gen;
+        //dd($product);
+        if ($request->hasfile('photos')) {
+
+              
+            foreach ($request->file('photos') as $photo) {
+                
+                $originalImage = $photo;
+                $thumbnailImage = Image::make($originalImage);
+                $time = time();
+                $thumbnailPath = public_path() . '/uploads/thumbnail/products/';
+                $originalPath = public_path() . '/uploads/images/products/';
+                $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+                $thumbnailImage->resize(150, 150);
+                $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+                $imagePaths[] = $time . $originalImage->getClientOriginalName();
+                 
+            }
             // $originalImage = $request->file('photo');
             // $thumbnailImage = Image::make($originalImage);
             // $time = time();
@@ -97,7 +106,10 @@ class ProductController extends Controller
             // $thumbnailImage->resize(150, 150);
             // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
             // $product->photo = $time . $originalImage->getClientOriginalName();
+            $imagePathsString = implode(';', $imagePaths);
+            
         }
+        $product->photo = $imagePathsString;
         $status = $product->save();
         if ($status) {
             request()->session()->flash('success', 'Product Successfully added');
