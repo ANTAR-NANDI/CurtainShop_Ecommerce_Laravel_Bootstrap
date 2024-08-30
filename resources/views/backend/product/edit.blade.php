@@ -124,7 +124,7 @@
         <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
         <div class="input-group">
           <span class="input-group-btn">
-            <input type="file" id="product_image" name="photos[]" class="form-control" />
+            <input type="file" id="product_image" name="photos[]" multiple class="form-control" />
           </span>
 
         </div>

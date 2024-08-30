@@ -38,22 +38,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'string|required',
-            'summary' => 'string|required',
-            'description' => 'string|nullable',
-            'photos' => 'required',
-            'size' => 'nullable',
-            'stock' => "required|numeric",
-            'cat_id' => 'required|exists:categories,id',
-            'brand_id' => 'nullable|exists:brands,id',
-            'child_cat_id' => 'nullable|exists:categories,id',
-            'is_featured' => 'sometimes|in:1',
-            'status' => 'required|in:active,inactive',
-            'condition' => 'nullable|in:default,new,hot',
-            'price' => 'required|numeric',
-            'discount' => 'nullable|numeric'
-        ]);
+        // dd("test");
+        // $this->validate($request, [
+        //     'title' => 'string|required',
+        //     'summary' => 'string|required',
+        //     'description' => 'string|nullable',
+        //     'photos' => 'required',
+        //     'size' => 'nullable',
+        //     'stock' => "required|numeric",
+        //     'cat_id' => 'required|exists:categories,id',
+        //     'brand_id' => 'nullable|exists:brands,id',
+        //     'child_cat_id' => 'nullable|exists:categories,id',
+        //     'is_featured' => 'sometimes|in:1',
+        //     'status' => 'required|in:active,inactive',
+        //     'condition' => 'nullable|in:default,new,hot',
+        //     'price' => 'required|numeric',
+        //     'discount' => 'nullable|numeric'
+        // ]);
         $product = new Product();
         $product->title = $request->title;
         $product->summary = $request->summary;
@@ -97,19 +98,11 @@ class ProductController extends Controller
                 $imagePaths[] = $time . $originalImage->getClientOriginalName();
                  
             }
-            // $originalImage = $request->file('photo');
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/thumbnail/products/';
-            // $originalPath = public_path() . '/uploads/images/products/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $product->photo = $time . $originalImage->getClientOriginalName();
             $imagePathsString = implode(';', $imagePaths);
             
         }
         $product->photo = $imagePathsString;
+        //dd($product);
         $status = $product->save();
         if ($status) {
             request()->session()->flash('success', 'Product Successfully added');
@@ -148,6 +141,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+        // dd($product->photo);
         $this->validate($request, [
             'title' => 'string|required',
             'summary' => 'string|required',
@@ -179,32 +173,38 @@ class ProductController extends Controller
         $product->child_cat_id = $request->child_cat_id;
         $product->price = $request->price;
         $product->discount = $request->discount ? $request->discount : 0;
-        if ($request->hasfile('photo')) {
-            // dd("Test");
-            if (file_exists(public_path() . '/uploads/thumbnail/products/' . $product->photo)) {
-                unlink(public_path() . '/uploads/thumbnail/products/' . $product->photo);
+        if ($request->hasfile('photos')) {
+
+              if($product->photo != "")
+              {
+                $all_photos = explode(';',$product->photo);
+                foreach ($all_photos as $path){
+                        if (file_exists(public_path() . '/uploads/thumbnail/products/' . $path)) {
+                            unlink(public_path() . '/uploads/thumbnail/products/' . $path);
+                        }
+                        if (file_exists(public_path() . '/uploads/images/products/' . $path)) {
+                            unlink(public_path() . '/uploads/images/products/' . $path);
+                        }
+                    }
+              }
+            foreach ($request->file('photos') as $photo) {
+                
+                $originalImage = $photo;
+                $thumbnailImage = Image::make($originalImage);
+                $time = time();
+                $thumbnailPath = public_path() . '/uploads/thumbnail/products/';
+                $originalPath = public_path() . '/uploads/images/products/';
+                $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
+                $thumbnailImage->resize(150, 150);
+                $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
+                $imagePaths[] = $time . $originalImage->getClientOriginalName();
+                 
             }
-            if (file_exists(public_path() . '/uploads/images/products/' . $product->photo)) {
-                unlink(public_path() . '/uploads/images/products/' . $product->photo);
-            }
-            $image = $request->file('photo');
-            $manager = new ImageManager(new Driver());
-            $name_gen = time() . hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $img = $manager->read($image);
-            $img = $img->resize(600, 600);
-            $img->toJpeg(80)->save(base_path('public/uploads/thumbnail/products/' . $name_gen));
-            $img->toJpeg(80)->save(base_path('public/uploads/images/products/' . $name_gen));
-            $product->photo = $name_gen;
-            // $originalImage = $request->file('photo');
-            // $thumbnailImage = Image::make($originalImage);
-            // $time = time();
-            // $thumbnailPath = public_path() . '/uploads/images/products/';
-            // $originalPath = public_path() . '/uploads/thumbnail/products/';
-            // $thumbnailImage->save($originalPath . $time . $originalImage->getClientOriginalName());
-            // $thumbnailImage->resize(150, 150);
-            // $thumbnailImage->save($thumbnailPath . $time . $originalImage->getClientOriginalName());
-            // $product->photo = $time . $originalImage->getClientOriginalName();
+            $imagePathsString = implode(';', $imagePaths);
+            
+            $product->photo = $imagePathsString;
         }
+        
         $status = $product->save();
         if ($status) {
             request()->session()->flash('success', 'Product Successfully updated');

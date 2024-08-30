@@ -13,6 +13,7 @@ use App\Models\Brand;
 use App\Models\ProductReview;
 use App\Models\Category;
 use App\Models\Banner;
+use App\Models\Setting;
 use App\Models\LookupBanner;
 
 class FrontendController extends Controller
@@ -24,12 +25,14 @@ class FrontendController extends Controller
         $advertisement_banners = AdvertisementBanner::orderBy('id', 'DESC')->paginate(10);
         $products = Product::all();
         $latestPosts = Post::orderBy('id', 'DESC')->take(3)->get();
+        $settings = Setting::first();
         // dd($advertisement_banners);
         return view('frontend.pages.index')->with('banners', $banners)
             ->with('products', $products)
             ->with('latest_posts', $latestPosts)
             ->with('lookup_banners', $lookup_banners)
-            ->with('advertisement_banners', $advertisement_banners);
+            ->with('advertisement_banners', $advertisement_banners)
+            ->with('settings', $settings);
     }
     public function shop()
     {

@@ -16,7 +16,7 @@
     <div class="main-content">
         <div class="wrap-banner">
             <!-- menu category -->
-            <!-- <div class="container position">
+            <div class="container position">
                 <div class="section menu-banner d-xs-none">
                     <div class="tiva-verticalmenu block">
                         <div class="box-content">
@@ -528,7 +528,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <!-- slide show -->
             @if(count($banners) > 0)
             <div class="section banner">

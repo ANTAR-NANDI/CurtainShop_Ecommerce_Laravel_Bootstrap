@@ -11,10 +11,12 @@
 
             <!-- logo -->
             <div class="mobile-logo">
-                <a href="index-2.html">
-                    <img class="logo-mobile img-fluid" src="img/home/logo-mobie.png" alt="Prestashop_Furnitica">
-                </a>
-            </div>
+                
+            @php
+                        $settings=DB::table('settings')->get();
+                        @endphp
+                        <a href="{{route('/')}}"><img src="@foreach($settings as $data) {{asset('/uploads/thumbnail/settings'). '/' . $data->photo}} @endforeach" alt="logo"></a>
+                    </div>
 
             <!-- menu right -->
             <div class="mobile-menutop" data-target="#mobile-pagemenu">
@@ -92,9 +94,11 @@
                 <!-- logo -->
                 <div class="col-sm-2 col-md-2 d-flex align-items-center">
                     <div id="logo">
-                        <a href="{{route('/')}}">
-                            <img class="img-fluid" src="img/home/logo.png" alt="logo">
-                        </a>
+                        
+                        @php
+                        $settings=DB::table('settings')->get();
+                        @endphp
+                        <a href="{{route('/')}}"><img src="@foreach($settings as $data) {{asset('/uploads/thumbnail/settings'). '/' . $data->photo}} @endforeach" alt="logo"></a>
                     </div>
                 </div>
 
